@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">BitTest_TP1</string>
+    <string name="picture_description">picture</string>
+    <string name="gray_button">Change to gray</string>
+    <string name="random_button">Change to a random color</string>
+    <string name="reset_c_button">Reset picture</string>
+    <string name="one_color_button">Keep only one color</string>
+    <string name="saturation_more_button">Add 10% to saturation</string>
+    <string name="saturation_less_button">Remove 10% to saturation</string>
+    <string name="contrast_more_button">Increase contrast</string>
+</resources>
