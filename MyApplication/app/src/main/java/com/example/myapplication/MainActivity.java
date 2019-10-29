@@ -5,9 +5,12 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SeekBar;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -33,16 +36,6 @@ public class MainActivity extends AppCompatActivity {
 
                 ImageView imageView= findViewById(R.id.picture);
                 imageView.setImageResource(R.drawable.multicolor);
-            }
-        });
-
-        final Button button_test_HSV = findViewById(R.id.test_HSV_button_id);
-        button_test_HSV.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onClick(View v) {
-                p = testRGBToHSV(p);
-                setImage(p);
             }
         });
 
@@ -85,6 +78,19 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v){
                 p = change_saturation(p,-0.1);
                 setImage(p);
+            }
+        });
+
+        final Button button_saturation = findViewById(R.id.saturation_button_id);
+        button_saturation.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v){
+                View layout_saturation = findViewById(R.id.layout_saturation);
+                if (layout_saturation.getVisibility() == View.GONE){
+                    layout_saturation.setVisibility(View.VISIBLE);
+                }
+                else{
+                    layout_saturation.setVisibility(View.GONE);
+                }
             }
         });
     }
@@ -339,27 +345,4 @@ public class MainActivity extends AppCompatActivity {
         bmp.setPixels(colors, 0, bmp.getWidth(), 0, 0, bmp.getWidth(), bmp.getHeight());
         return bmp;
     }
-
-    // TODO
-    protected Bitmap moreContrast(Bitmap bmp){
-        int[] pixels = new int[bmp.getWidth() * bmp.getHeight()];
-        bmp.getPixels(pixels, 0, bmp.getWidth(), 0, 0, bmp.getWidth(), bmp.getHeight());
-        int[] colors = new int[bmp.getWidth() * bmp.getHeight()];
-
-        int min = minGray(pixels);
-        int max = maxGray(pixels);
-        int[] LUT = new int[256];
-
-        for (int ng = 0; ng < 256; ng++){
-            LUT[ng] = (255 * (ng - min) * (max - min));
-        }
-
-        for (int i = 0; i < colors.length; i++){
-            colors[i] = LUT[colorToGray(pixels[i])];
-        }
-
-        bmp.setPixels(colors, 0, bmp.getWidth(), 0, 0, bmp.getWidth(), bmp.getHeight());
-        return bmp;
-    }
-
 }

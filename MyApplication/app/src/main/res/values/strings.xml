@@ -5,8 +5,7 @@
     <string name="random_button">Change to a random color</string>
     <string name="reset_c_button">Reset picture</string>
     <string name="one_color_button">Keep only one color</string>
-    <string name="saturation_more_button">Add 10% to saturation</string>
-    <string name="saturation_less_button">Remove 10% to saturation</string>
-    <string name="contrast_more_button">Increase contrast</string>
-    <string name="test_HSV_button_id">Test HSV</string>
+    <string name="saturation_button">Change saturation</string>
+    <string name="saturation_more_button">+ 1</string>
+    <string name="saturation_less_button">- 1</string>
 </resources>
