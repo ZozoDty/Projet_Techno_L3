@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.sql.SQLOutput;
+
 public class MainActivity extends AppCompatActivity {
 
     Bitmap p;
@@ -34,15 +36,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        final Button button_test_HSV = findViewById(R.id.test_HSV_button_id);
+        button_test_HSV.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onClick(View v) {
+                p = testRGBToHSV(p);
+                setImage(p);
+            }
+        });
+
         final Button button_gray = findViewById(R.id.gray_button_id);
         button_gray.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 p = toGray(p);
-
-                ImageView pic_image = findViewById(R.id.picture);
-                pic_image.setImageBitmap(p);
+                setImage(p);
             }
         });
 
@@ -50,9 +60,7 @@ public class MainActivity extends AppCompatActivity {
         button_random.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 p = colorize(p);
-
-                ImageView pic_image = findViewById(R.id.picture);
-                pic_image.setImageBitmap(p);
+                setImage(p);
             }
         });
 
@@ -60,9 +68,7 @@ public class MainActivity extends AppCompatActivity {
         button_one_color.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 p = one_color(p);
-
-                ImageView pic_image = findViewById(R.id.picture);
-                pic_image.setImageBitmap(p);
+                setImage(p);
             }
         });
 
@@ -70,9 +76,7 @@ public class MainActivity extends AppCompatActivity {
         button_more_saturation.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 p = change_saturation(p,0.1);
-
-                ImageView pic_image = findViewById(R.id.picture);
-                pic_image.setImageBitmap(p);
+                setImage(p);
             }
         });
 
@@ -80,52 +84,46 @@ public class MainActivity extends AppCompatActivity {
         button_less_saturation.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 p = change_saturation(p,-0.1);
-
-                ImageView pic_image = findViewById(R.id.picture);
-                pic_image.setImageBitmap(p);
-            }
-        });
-
-        final Button button_more_contrast = findViewById(R.id.contrast_more_button_id);
-        button_more_contrast.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v){
-                p = moreContrast(p);
-
-                ImageView pic_image = findViewById(R.id.picture);
-                pic_image.setImageBitmap(p);
+                setImage(p);
             }
         });
     }
 
+    protected void setImage (Bitmap p){
+        ImageView pic_image = findViewById(R.id.picture);
+        pic_image.setImageBitmap(p);
+    }
 
     // Tool functions
 
     protected float[] RGBToHSV(int red, int green, int blue){
         float[] hsv = new float[3];
 
-        float red2 = red/255.F;
-        float green2 = green/255.F;
-        float blue2 = blue/255.F;
+        float r = red / 255.F;
+        float g = green / 255.F;
+        float b = blue / 255.F;
 
-        float Cmax = Math.max(red2, Math.max(green2, blue2));
-        float Cmin = Math.min(red2, Math.min(green2, blue2));
+        float Cmax = Math.max(r, Math.max(g, b));
+        float Cmin = Math.min(r, Math.min(g, b));
         float delta = Cmax - Cmin;
 
         // Hue calculation
         if (delta == 0){
             hsv[0] = 0;
         }
-        else if (Cmax == red2){
-            hsv[0] = 60 * (((green2 - blue2)/delta)%6);
+        else if (Cmax == r){
+            hsv[0] = ((g - b)/delta) % 6;
         }
-        else if (Cmax == green2){
-            hsv[0] = 60 * ((blue2 - red2)/delta + 2);
+        else if (Cmax == g){
+            hsv[0] = (b - r)/delta + 2;
         }
-        else if (Cmax == blue2){
-            hsv[0] = 60 * ((red2 - green2)/delta + 4);
+        else if (Cmax == b){
+            hsv[0] = (r - g)/delta + 4;
         }
-        else{
-            System.out.println("Hue not in case\n");
+        hsv[0] = Math.round(hsv[0] * 60);
+
+        if (hsv[0] < 0){
+            hsv[0] += 360;
         }
 
         // Saturation calculation
@@ -140,26 +138,63 @@ public class MainActivity extends AppCompatActivity {
         hsv[2] = Cmax;
 
         return hsv;
-
     }
 
-    protected void testRGBToHSV(Bitmap bmp){
-        int[] pixels = new int[bmp.getWidth() * bmp.getHeight()];
-        bmp.getPixels(pixels, 0, bmp.getWidth(), 0, 0, bmp.getWidth(), bmp.getHeight());
-        int[] colors = new int[bmp.getWidth() * bmp.getHeight()];
+    protected int HSVToRGB(float[] hsv){
+        float h = hsv[0];
+        float s = hsv[1];
+        float v = hsv[2];
+
+        float c = v * s;
+        float x = c * (1 - Math.abs((h/60) % 2 - 1));
+
+        float r = 0;
+        float g = 0;
+        float b = 0;
+
+        if (h >= 0){
+            if (h < 60){
+                r = c;
+                g = x;
+                b = 0;
+            }
+            else if (h < 120){
+                r = x;
+                g = c;
+                b = 0;
+            }
+            else if (h < 180){
+                r = 0;
+                g = c;
+                b = x;
+            }
+            else if (h < 240){
+                r = 0;
+                g = x;
+                b = c;
+            }
+            else if (h < 300){
+                r = x;
+                g = 0;
+                b = c;
+            }
+            else if (h < 360){
+                r = c;
+                g = 0;
+                b = x;
+            }
+        }
+
+        float m = v - c;
 
         int red, green, blue;
-        boolean test = true;
 
-        for (int i = 0; i < pixels.length; i++) {
-            red = Color.red(pixels[i]);
-            green = Color.green(pixels[i]);
-            blue = Color.blue(pixels[i]);
-            float[] hsv = RGBToHSV(red, green, blue);
-            colors[i] = Color.HSVToColor(hsv);
+        red = (int) ((r + m) * 255);
+        green = (int) ((g + m) * 255);
+        blue = (int) ((b + m) * 255);
 
-            // TODO Test if new color = old color
-        }
+        return Color.rgb(red, green, blue);
+
     }
 
     protected int colorToGray(int pixel){
@@ -168,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
         double blue = Color.blue(pixel) * 0.11;
         int tmp = (int) (red + green + blue);
 
-        return Color.rgb(tmp, tmp,  tmp);
+        return Color.rgb(tmp, tmp, tmp);
     }
 
     protected boolean isInside(float test, int start, int end){
@@ -199,6 +234,26 @@ public class MainActivity extends AppCompatActivity {
 
     // Button functions
 
+    protected Bitmap testRGBToHSV(Bitmap bmp){
+        int[] pixels = new int[bmp.getWidth() * bmp.getHeight()];
+        bmp.getPixels(pixels, 0, bmp.getWidth(), 0, 0, bmp.getWidth(), bmp.getHeight());
+        int[] colors = new int[bmp.getWidth() * bmp.getHeight()];
+
+        int red, green, blue;
+
+        for (int i = 0; i < pixels.length; i++) {
+            red = Color.red(pixels[i]);
+            green = Color.green(pixels[i]);
+            blue = Color.blue(pixels[i]);
+
+            float[] hsv = RGBToHSV(red, green, blue);
+            colors[i] = HSVToRGB(hsv);
+        }
+
+        bmp.setPixels(colors,0, bmp.getWidth(), 0, 0, bmp.getWidth(), bmp.getHeight());
+        return bmp;
+    }
+
     protected Bitmap toGray(Bitmap bmp){
         int[] pixels = new int[bmp.getWidth()*bmp.getHeight()];
         bmp.getPixels(pixels, 0, bmp.getWidth(), 0, 0, bmp.getWidth(), bmp.getHeight());
@@ -227,7 +282,7 @@ public class MainActivity extends AppCompatActivity {
             float[] hsv = RGBToHSV(red, green, blue);
             hsv[0] = new_color;
 
-            colors[i] = Color.HSVToColor(hsv);
+            colors[i] = HSVToRGB(hsv);
         }
 
         bmp.setPixels(colors,0, bmp.getWidth(), 0, 0, bmp.getWidth(), bmp.getHeight());
@@ -250,7 +305,7 @@ public class MainActivity extends AppCompatActivity {
                 colors[i] = colorToGray(pixels[i]);
             }
             else{
-                colors[i] = Color.HSVToColor(hsv);
+                colors[i] = HSVToRGB(hsv);
             }
 
         }
@@ -259,7 +314,6 @@ public class MainActivity extends AppCompatActivity {
         return bmp;
     }
 
-    // TODO change the color when used
     protected Bitmap change_saturation(Bitmap bmp, double saturation_change){
         int[] pixels = new int[bmp.getWidth() * bmp.getHeight()];
         bmp.getPixels(pixels, 0, bmp.getWidth(), 0, 0, bmp.getWidth(), bmp.getHeight());
@@ -279,7 +333,7 @@ public class MainActivity extends AppCompatActivity {
             if (hsv[2] > 1){
                 hsv[2] = 1;
             }
-            colors[i] = Color.HSVToColor(hsv);
+            colors[i] = HSVToRGB(hsv);
         }
 
         bmp.setPixels(colors, 0, bmp.getWidth(), 0, 0, bmp.getWidth(), bmp.getHeight());

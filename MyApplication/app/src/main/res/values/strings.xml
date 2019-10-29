@@ -8,4 +8,5 @@
     <string name="saturation_more_button">Add 10% to saturation</string>
     <string name="saturation_less_button">Remove 10% to saturation</string>
     <string name="contrast_more_button">Increase contrast</string>
+    <string name="test_HSV_button_id">Test HSV</string>
 </resources>
