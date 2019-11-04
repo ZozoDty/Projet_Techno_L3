@@ -5,16 +5,12 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.SeekBar;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.sql.SQLOutput;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,12 +18,14 @@ public class MainActivity extends AppCompatActivity {
     int left_selected_color = 0;
     int right_selected_color = 360;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         final View scroll_parameter = findViewById(R.id.scroll_parameter);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY|View.SYSTEM_UI_FLAG_FULLSCREEN|View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|View.SYSTEM_UI_FLAG_IMMERSIVE);
 
         reset_p();
         set_p_tmp();
@@ -36,6 +34,33 @@ public class MainActivity extends AppCompatActivity {
         button_reset_color.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 reset_p();
+                set_p_tmp();
+                left_selected_color = 0;
+                right_selected_color = 360;
+                setImage(p);
+            }
+        });
+
+        final Button button_negative = findViewById(R.id.negative_button);
+        button_negative.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v){
+                p = negative(p);
+                setImage(p);
+            }
+        });
+
+        final Button button_random = findViewById(R.id.random_button);
+        button_random.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v){
+                p = colorize(p);
+                setImage(p);
+            }
+        });
+
+        final Button button_linear_transformation = findViewById(R.id.linear_transformation_button);
+        button_linear_transformation.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v){
+                p = linear_transformation(p);
                 setImage(p);
             }
         });
@@ -46,14 +71,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 p = toGray(p);
-                setImage(p);
-            }
-        });
-
-        final Button button_random = findViewById(R.id.random_button);
-        button_random.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v){
-                p = colorize(p);
                 setImage(p);
             }
         });
@@ -152,15 +169,60 @@ public class MainActivity extends AppCompatActivity {
         final Button button_more_saturation = findViewById(R.id.saturation_more_button);
         button_more_saturation.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
-                p_tmp = change_saturation(p,0.1);
-                setImage(p);
+                p_tmp = change_saturation(p_tmp,0.1);
+                setImage(p_tmp);
             }
         });
 
         final Button button_less_saturation = findViewById(R.id.saturation_less_button);
         button_less_saturation.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
-                p_tmp = change_saturation(p,-0.1);
+                p_tmp = change_saturation(p_tmp,-0.1);
+                setImage(p_tmp);
+            }
+        });
+
+        // Brightness
+
+        final Button button_brightness = findViewById(R.id.brightness_button);
+        button_brightness.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v){
+                View layout_brightness = findViewById(R.id.brightness_layout);
+
+                p_tmp = p;
+                p_tmp = p_tmp.copy(p_tmp.getConfig(), true);
+
+                scroll_parameter.setVisibility(View.GONE);
+                layout_brightness.setVisibility(View.VISIBLE);
+            }
+        });
+
+        final Button button_brightness_return = findViewById(R.id.brightness_return_button);
+        button_brightness_return.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v){
+                View layout_brightness = findViewById(R.id.brightness_layout);
+
+                p = p_tmp;
+                p = p.copy(p.getConfig(), true);
+                setImage(p);
+
+                layout_brightness.setVisibility(View.GONE);
+                scroll_parameter.setVisibility(View.VISIBLE);
+            }
+        });
+
+        final Button button_more_brightness = findViewById(R.id.brightness_more_button);
+        button_more_brightness.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v){
+                p_tmp = change_brightness(p_tmp,0.1);
+                setImage(p_tmp);
+            }
+        });
+
+        final Button button_less_brightness = findViewById(R.id.brightness_less_button);
+        button_less_brightness.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v){
+                p_tmp = change_brightness(p_tmp,-0.1);
                 setImage(p_tmp);
             }
         });
@@ -281,7 +343,6 @@ public class MainActivity extends AppCompatActivity {
         blue = (int) ((b + m) * 255);
 
         return Color.rgb(red, green, blue);
-
     }
 
     protected int colorToGray(int pixel){
@@ -297,7 +358,67 @@ public class MainActivity extends AppCompatActivity {
         return (test >= start && test <= end);
     }
 
-    // Button functions
+    protected int[] max_min_colors (int[] pixels){
+        int max_red = 0, min_red = 255,
+            max_green = 0, min_green = 255,
+            max_blue = 0, min_blue = 255,
+            red, green, blue;
+
+        for (int i = 0; i < pixels.length; i++){
+            red = Color.red(pixels[i]);
+            green = Color.green(pixels[i]);
+            blue = Color.blue(pixels[i]);
+
+            if (red > max_red)
+                max_red = red;
+            if (red < min_red)
+                min_red = red;
+
+            if (green > max_green)
+                max_green = green;
+            if (green < min_green)
+                min_green = green;
+
+            if (blue > max_blue)
+                max_blue = blue;
+            if (blue < min_blue)
+                min_blue = blue;
+        }
+        return new int[] {max_red, min_red, max_green, min_green, max_blue, min_blue};
+    }
+
+    protected int[] createLUTred (int[] max_min_array){
+        int max_red = max_min_array[0];
+        int min_red = max_min_array[1];
+        int[] LUTred = new int[256];
+
+        for (int ng = 0; ng < 256; ng++){
+            LUTred[ng] = (255 * (ng - min_red) / (max_red - min_red));
+        }
+        return LUTred;
+    }
+
+    protected int[] createLUTgreen (int[] max_min_array){
+        int max_green = max_min_array[2];
+        int min_green = max_min_array[3];
+        int[] LUTgreen = new int[256];
+
+        for (int ng = 0; ng < 256; ng++){
+            LUTgreen[ng] = (255 * (ng - min_green) / (max_green - min_green));
+        }
+        return LUTgreen;
+    }
+
+    protected int[] createLUTblue (int[] max_min_array){
+        int max_blue = max_min_array[4];
+        int min_blue = max_min_array[5];
+        int[] LUTblue = new int[256];
+
+        for (int ng = 0; ng < 256; ng++){
+            LUTblue[ng] = 255 * (ng - min_blue) / (max_blue - min_blue);
+        }
+        return LUTblue;
+    }
 
     protected Bitmap testRGBToHSV(Bitmap bmp){
         p_modif = bmp;
@@ -320,6 +441,40 @@ public class MainActivity extends AppCompatActivity {
         p_modif.setPixels(colors,0, p_modif.getWidth(), 0, 0, p_modif.getWidth(), p_modif.getHeight());
         return p_modif;
     }
+
+    /*protected int[][] createHistogram (int[] pixels){
+        int red, green, blue;
+
+        int[][] histogram = new int[3][256]; // histogram = {histogramRed[256], histogramGreen[256], histogramBlue[256]}
+
+        for (int i = 0; i < pixels.length; i++){
+            red = Color.red(pixels[i]);
+            green = Color.green(pixels[i]);
+            blue = Color.blue(pixels[i]);
+
+            histogram[0][red]++;
+            histogram[1][green]++;
+            histogram[2][blue]++;
+        }
+
+        return histogram;
+    }*/
+
+    /*
+    protected int[] createHistogram (int[] pixels){     // Gray version
+
+        int[] histogram = new int[256]; // histogram = {histogramRed[256], histogramGreen[256], histogramBlue[256]}
+
+        for (int i = 0; i < pixels.length; i++){
+            int gray = Color.red(colorToGray(pixels[i]));
+
+            histogram[gray]++;
+        }
+
+        return histogram;
+    }*/
+
+    // Button functions
 
     protected Bitmap toGray(Bitmap bmp){
         p_modif = bmp;
@@ -371,13 +526,13 @@ public class MainActivity extends AppCompatActivity {
 
         int red, green, blue;
         left_selected_color = left_selected_color + change_left;
-        if (left_selected_color < -360)
-            left_selected_color = -360;
+        if (left_selected_color < 0)
+            left_selected_color = 0;
         if (left_selected_color > 360)
             left_selected_color = 360;
         right_selected_color = right_selected_color + change_right;
-        if (right_selected_color < -360)
-            right_selected_color = -360;
+        if (right_selected_color < 0)
+            right_selected_color = 0;
         if (right_selected_color > 360)
             right_selected_color = 360;
 
@@ -400,9 +555,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected Bitmap change_saturation(Bitmap bmp, double saturation_change){
-        int[] pixels = new int[bmp.getWidth() * bmp.getHeight()];
-        bmp.getPixels(pixels, 0, bmp.getWidth(), 0, 0, bmp.getWidth(), bmp.getHeight());
-        int[] colors = new int[bmp.getWidth() * bmp.getHeight()];
+        p_modif = bmp;
+        p_modif = p_modif.copy(p_modif.getConfig(), true);
+
+        int[] pixels = new int[p_modif.getWidth() * p_modif.getHeight()];
+        p_modif.getPixels(pixels, 0, p_modif.getWidth(), 0, 0, p_modif.getWidth(), p_modif.getHeight());
+        int[] colors = new int[p_modif.getWidth() * p_modif.getHeight()];
 
         int red, green, blue;
 
@@ -411,7 +569,36 @@ public class MainActivity extends AppCompatActivity {
             green = Color.green(pixels[i]);
             blue = Color.blue(pixels[i]);
             float[] hsv = RGBToHSV(red, green, blue);
-            hsv[2] += saturation_change;
+            hsv[1] += saturation_change;
+            if (hsv[1] < 0){
+                hsv[1] = 0;
+            }
+            if (hsv[1] > 1){
+                hsv[1] = 1;
+            }
+            colors[i] = HSVToRGB(hsv);
+        }
+
+        p_modif.setPixels(colors, 0, p_modif.getWidth(), 0, 0, p_modif.getWidth(), p_modif.getHeight());
+        return p_modif;
+    }
+
+    protected Bitmap change_brightness (Bitmap bmp, double brightness_change){
+        p_modif = bmp;
+        p_modif = p_modif.copy(p_modif.getConfig(), true);
+
+        int[] pixels = new int[p_modif.getWidth() * p_modif.getHeight()];
+        p_modif.getPixels(pixels, 0, p_modif.getWidth(), 0, 0, p_modif.getWidth(), p_modif.getHeight());
+        int[] colors = new int[p_modif.getWidth() * p_modif.getHeight()];
+
+        int red, green, blue;
+
+        for (int i = 0; i < pixels.length; i++) {
+            red = Color.red(pixels[i]);
+            green = Color.green(pixels[i]);
+            blue = Color.blue(pixels[i]);
+            float[] hsv = RGBToHSV(red, green, blue);
+            hsv[2] += brightness_change;
             if (hsv[2] < 0){
                 hsv[2] = 0;
             }
@@ -421,7 +608,143 @@ public class MainActivity extends AppCompatActivity {
             colors[i] = HSVToRGB(hsv);
         }
 
-        bmp.setPixels(colors, 0, bmp.getWidth(), 0, 0, bmp.getWidth(), bmp.getHeight());
-        return bmp;
+        p_modif.setPixels(colors, 0, p_modif.getWidth(), 0, 0, p_modif.getWidth(), p_modif.getHeight());
+        return p_modif;
     }
+
+    protected Bitmap negative(Bitmap bmp){
+        p_modif = bmp;
+        p_modif = p_modif.copy(p_modif.getConfig(), true);
+
+        int[] pixels = new int[p_modif.getWidth()*p_modif.getHeight()];
+        p_modif.getPixels(pixels, 0, p_modif.getWidth(), 0, 0, p_modif.getWidth(), p_modif.getHeight());
+        int[] colors = new int[p_modif.getWidth()*p_modif.getHeight()];
+        int red, green, blue;
+
+        for(int i = 0; i < pixels.length; i++) {
+            red = Color.red(pixels[i]);
+            green = Color.green(pixels[i]);
+            blue = Color.blue(pixels[i]);
+
+            red = 255 - red;
+            green = 255 - green;
+            blue = 255 - blue;
+
+            colors[i] = Color.rgb(red, green, blue);
+        }
+
+        p_modif.setPixels(colors,0, p_modif.getWidth(), 0, 0, p_modif.getWidth(), p_modif.getHeight());
+        return p_modif;
+    }
+
+    protected Bitmap linear_transformation(Bitmap bmp){
+        p_modif = bmp;
+        p_modif = p_modif.copy(p_modif.getConfig(), true);
+
+        int[] pixels = new int[p_modif.getWidth()*p_modif.getHeight()];
+        p_modif.getPixels(pixels, 0, p_modif.getWidth(), 0, 0, p_modif.getWidth(), p_modif.getHeight());
+        int[] colors = new int[p_modif.getWidth()*p_modif.getHeight()];
+        int red, green, blue;
+
+        int[] max_min_array = max_min_colors(pixels);
+        int[] LUTred = createLUTred(max_min_array);
+        int[] LUTgreen = createLUTgreen(max_min_array);
+        int[] LUTblue = createLUTblue(max_min_array);
+
+        for (int i = 0; i < pixels.length; i++){
+            red = Color.red(pixels[i]);
+            green = Color.green(pixels[i]);
+            blue = Color.blue(pixels[i]);
+
+            red = LUTred[red];
+            green = LUTgreen[green];
+            blue = LUTblue[blue];
+
+            colors[i] = Color.rgb(red, green, blue);
+        }
+
+        p_modif.setPixels(colors, 0, p_modif.getWidth(), 0, 0, p_modif.getWidth(), p_modif.getHeight());
+        return p_modif;
+    }
+
+    /*protected Bitmap histogramEgalisation (Bitmap bmp){
+        p_modif = bmp;
+        p_modif = p_modif.copy(p_modif.getConfig(), true);
+
+        int[] pixels = new int[p_modif.getWidth()*p_modif.getHeight()];
+        p_modif.getPixels(pixels, 0, p_modif.getWidth(), 0, 0, p_modif.getWidth(), p_modif.getHeight());
+        int[] colors = new int[p_modif.getWidth()*p_modif.getHeight()];
+        int red, green, blue;
+
+        int[][] histogram = createHistogram(pixels);
+        int[] histogramCred = new int [256];
+        int[] histogramCgreen = new int [256];
+        int[] histogramCblue = new int [256];
+
+        for (int i = 0; i < 256; i++){
+            for (int j = 0; j <= i; j++){
+                histogramCred[i] += histogram[0][j];
+                histogramCgreen[i] += histogram[1][j];
+                histogramCblue[i] += histogram[2][j];
+            }
+        }
+
+        int[] LUTred = new int [256];
+        int[] LUTgreen = new int [256];
+        int[] LUTblue = new int [256];
+
+        for (int i = 0; i < 256; i++){
+            LUTred[i] = (255 / (bmp.getWidth() * bmp.getHeight())) * histogramCred[i];
+            LUTgreen[i] = (255 / (bmp.getWidth() * bmp.getHeight())) * histogramCgreen[i];
+            LUTblue[i] = (255 / (bmp.getWidth() * bmp.getHeight())) * histogramCblue[i];
+        }
+
+        for (int i = 0; i < pixels.length; i++){
+            red = Color.red(pixels[i]);
+            green = Color.green(pixels[i]);
+            blue = Color.blue(pixels[i]);
+
+            red = LUTred[red];
+            green = LUTgreen[green];
+            blue = LUTblue[blue];
+
+            colors[i] = Color.rgb(red, green, blue);
+        }
+
+        p_modif.setPixels(colors, 0, p_modif.getWidth(), 0, 0, p_modif.getWidth(), p_modif.getHeight());
+        return p_modif;
+    }*/
+
+    /*
+    protected Bitmap histogramEgalisation (Bitmap bmp){ // Gray version
+        p_modif = toGray(bmp);
+        p_modif = p_modif.copy(p_modif.getConfig(), true);
+
+        int[] pixels = new int[p_modif.getWidth()*p_modif.getHeight()];
+        p_modif.getPixels(pixels, 0, p_modif.getWidth(), 0, 0, p_modif.getWidth(), p_modif.getHeight());
+        int[] colors = new int[p_modif.getWidth()*p_modif.getHeight()];
+
+        int[] histogram = createHistogram(pixels);
+        int[] histogramC = new int [256];
+
+        for (int i = 0; i < 256; i++){
+            for (int j = 0; j <= i; j++){
+                histogramC[i] += histogram[j];
+            }
+        }
+
+        int[] LUT = new int [256];
+
+        for (int i = 0; i < 256; i++){
+            LUT[i] = (255 / (bmp.getWidth() * bmp.getHeight())) * histogramC[i];
+        }
+
+        for (int i = 0; i < pixels.length; i++){
+            int color = Color.red(colorToGray(pixels[i]));
+            colors[i] = Color.rgb(LUT[color], LUT[color], LUT[color]);
+        }
+
+        p_modif.setPixels(colors, 0, p_modif.getWidth(), 0, 0, p_modif.getWidth(), p_modif.getHeight());
+        return p_modif;
+    }*/
 }

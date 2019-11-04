@@ -1,28 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <Button
             android:id="@+id/reset_c_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/reset_c_button"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:text="@string/reset_c_button" />
 
         <ImageView
             android:id="@+id/picture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:contentDescription="@string/picture_description"
-            android:src="@drawable/multicolor"
-            android:layout_gravity="center"/>
+            android:src="@drawable/multicolor" />
 
         <HorizontalScrollView
             android:id="@+id/scroll_parameter"
@@ -42,16 +47,34 @@
                     android:text="@string/saturation_button" />
 
                 <Button
+                    android:id="@+id/brightness_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/brightness_button" />
+
+                <Button
                     android:id="@+id/selected_color_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/selected_color_button"/>
+                    android:text="@string/selected_color_button" />
 
                 <Button
                     android:id="@+id/random_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/random_button" />
+
+                <Button
+                    android:id="@+id/negative_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/negative_button" />
+
+                <Button
+                    android:id="@+id/linear_transformation_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/linear_transformation_button" />
 
                 <Button
                     android:id="@+id/gray_button"
@@ -67,15 +90,15 @@
             android:id="@+id/saturation_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:layout_gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/saturation_text"/>
+                android:text="@string/saturation_text" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -102,7 +125,50 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/return_saturation_button"/>
+                android:text="@string/return_saturation_button" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/brightness_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/brightness_text" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/brightness_more_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/brightness_more_button" />
+
+                <Button
+                    android:id="@+id/brightness_less_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/brightness_less_button" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/brightness_return_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/return_brightness_button" />
 
         </LinearLayout>
 
@@ -111,8 +177,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="gone"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="match_parent"
@@ -130,25 +196,25 @@
                     android:id="@+id/selected_color_more_left_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/color_more_1_left_button"/>
+                    android:text="@string/color_more_1_left_button" />
 
                 <Button
                     android:id="@+id/selected_color_less_left_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/color_less_1_left_button"/>
+                    android:text="@string/color_less_1_left_button" />
 
                 <Button
                     android:id="@+id/selected_color_more_right_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/color_more_1_right_button"/>
+                    android:text="@string/color_more_1_right_button" />
 
                 <Button
                     android:id="@+id/selected_color_less_right_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/color_less_1_right_button"/>
+                    android:text="@string/color_less_1_right_button" />
 
             </LinearLayout>
 
@@ -157,7 +223,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/return_selected_color_button"/>
+                android:text="@string/return_selected_color_button" />
 
         </LinearLayout>
 
