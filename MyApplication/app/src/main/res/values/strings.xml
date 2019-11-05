@@ -5,7 +5,7 @@
     <string name="reset_c_button">Reset</string>
     <string name="random_button">Random color</string>
     <string name="negative_button">Negative</string>
-    <string name="linear_transformation_button">Linear transformation</string>
+    <string name="linear_transformation_button">Linear extansion</string>
     <string name="gray_button">Gray version</string>
 
 
@@ -19,8 +19,8 @@
     <string name="brightness_button">Change brightness</string>
     <string name="return_brightness_button">Return</string>
     <string name="brightness_text">Brightnesss</string>
-    <string name="brightness_more_button">+ 1</string>
-    <string name="brightness_less_button">- 1</string>
+    <string name="brightness_more_button">+1</string>
+    <string name="brightness_less_button">-1</string>
 
     <string name="selected_color_button">Selected colors</string>
     <string name="return_selected_color_button">Return</string>

@@ -1,0 +1,8 @@
+
+Pour le jeudi 07/11 minuit, vous devez rendre le code pour les trois premiers TPs (algorithmes de traitement d'image).
+
+Vous enverrez par mail aux trois chargés de TP un lien vers un dépôt git (sur savane, github ou autre) qui contiendra votre code. Pensez à nous donner le droit de lecture du dépôt.
+
+L'idéal serait que les fonctions de traitement d'image des trois premiers TPs soient rassemblées au sein d'une même application. Si ce n'est pas le cas, mettez un fichier README sur votre dépôt pour préciser ce qui est fait.
+Le rapport doit contenir la liste des fonctions de traitement d'image implémentées. Pour chaque fonction, vous préciserez le temps de traitement sur une ou plusieurs images. N'oubliez pas de spécifier sur quel smartphone, quelle version d'android et quelles tailles d'images vous avez testÃ©.
+Le rapport pourra être envoyé dans le mail précisant l'adresse du dépôt git.
