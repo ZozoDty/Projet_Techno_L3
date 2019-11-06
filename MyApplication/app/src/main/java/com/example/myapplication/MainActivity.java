@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
+    int picture_id = R.drawable.multicolor;
+
     Bitmap p, p_tmp, p_modif;
     int left_selected_color = 0;
     int right_selected_color = 360;
@@ -229,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void reset_p(){
-        p = BitmapFactory.decodeResource(getResources(), R.drawable.multicolor);
+        p = BitmapFactory.decodeResource(getResources(), picture_id);
         p = p.copy(p.getConfig(), true);
     }
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2018.10.2)  6 NOV 2019 09:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2018.10.2)  6 NOV 2019 13:55
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -485,62 +485,87 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] <../multicolor.png, id=11, 399.4925pt x 265.99374pt>
 File: ../multicolor.png Graphic file (type png)
  <use ../multicolor.png>
-Package pdftex.def Info: ../multicolor.png used on input line 22.
-(pdftex.def)             Requested size: 284.52756pt x 189.4535pt.
- [2 <../multicolor.png>]
-Overfull \hbox (9.77814pt too wide) in paragraph at lines 46--47
-[]\T1/cmr/m/n/10 Cette fonc-tion per-met de mo-di-fier la sa-tu-ra-tion de l'image en ajou-tant/enlevant
- []
-
-<../SaturationMax.PNG, id=16, 286.82156pt x 191.21437pt>
+Package pdftex.def Info: ../multicolor.png used on input line 23.
+(pdftex.def)             Requested size: 256.0748pt x 170.5114pt.
+ [2 <../multicolor.png>] <../SaturationMax.PNG, id=16, 286.82156pt x 191.21437pt>
 File: ../SaturationMax.PNG Graphic file (type png)
  <use ../SaturationMax.PNG>
-Package pdftex.def Info: ../SaturationMax.PNG used on input line 49.
-(pdftex.def)             Requested size: 284.52756pt x 189.68794pt.
+Package pdftex.def Info: ../SaturationMax.PNG used on input line 51.
+(pdftex.def)             Requested size: 256.0748pt x 170.72002pt.
  <../SaturationMoins6.PNG, id=18, 287.57437pt x 191.9672pt>
 File: ../SaturationMoins6.PNG Graphic file (type png)
  <use ../SaturationMoins6.PNG>
-Package pdftex.def Info: ../SaturationMoins6.PNG used on input line 54.
-(pdftex.def)             Requested size: 284.52756pt x 189.93973pt.
-
-Overfull \hbox (8.0841pt too wide) in paragraph at lines 60--61
-[]\T1/cmr/m/n/10 Cette fonc-tion per-met de chan-ger la lu-mi-no-sité de l'image en ajou-tant/enlevant
- []
-
-<../LuminositePlus3.PNG, id=19, 286.82156pt x 191.9672pt>
+Package pdftex.def Info: ../SaturationMoins6.PNG used on input line 58.
+(pdftex.def)             Requested size: 256.0748pt x 170.94398pt.
+ <../LuminositePlus3.PNG, id=19, 286.82156pt x 191.9672pt>
 File: ../LuminositePlus3.PNG Graphic file (type png)
  <use ../LuminositePlus3.PNG>
-Package pdftex.def Info: ../LuminositePlus3.PNG used on input line 63.
-(pdftex.def)             Requested size: 286.82085pt x 191.96672pt.
+Package pdftex.def Info: ../LuminositePlus3.PNG used on input line 69.
+(pdftex.def)             Requested size: 256.0748pt x 171.39215pt.
  [3 <../SaturationMax.PNG> <../SaturationMoins6.PNG>] <../LuminositeMoins3.PNG, id=25, 286.82156pt x 191.9672pt>
 File: ../LuminositeMoins3.PNG Graphic file (type png)
  <use ../LuminositeMoins3.PNG>
-Package pdftex.def Info: ../LuminositeMoins3.PNG used on input line 68.
-(pdftex.def)             Requested size: 286.82085pt x 191.96672pt.
+Package pdftex.def Info: ../LuminositeMoins3.PNG used on input line 76.
+(pdftex.def)             Requested size: 256.0748pt x 171.39215pt.
  <../SelectedColor.PNG, id=26, 289.08pt x 191.9672pt>
 File: ../SelectedColor.PNG Graphic file (type png)
  <use ../SelectedColor.PNG>
-Package pdftex.def Info: ../SelectedColor.PNG used on input line 78.
-(pdftex.def)             Requested size: 289.07928pt x 191.96672pt.
+Package pdftex.def Info: ../SelectedColor.PNG used on input line 87.
+(pdftex.def)             Requested size: 256.0748pt x 170.05937pt.
  [4 <../LuminositePlus3.PNG> <../LuminositeMoins3.PNG>] <../Negatif.PNG, id=32, 288.3272pt x 191.9672pt>
 File: ../Negatif.PNG Graphic file (type png)
  <use ../Negatif.PNG>
-Package pdftex.def Info: ../Negatif.PNG used on input line 87.
-(pdftex.def)             Requested size: 288.32648pt x 191.96672pt.
- [5 <../SelectedColor.PNG> <../Negatif.PNG>] [6] (/net/cremi/zdebaty/espaces/travail/Projet_Techno_L3/Rendu_1/Latex/Rendu_1.aux) ) 
+Package pdftex.def Info: ../Negatif.PNG used on input line 98.
+(pdftex.def)             Requested size: 256.0748pt x 170.50168pt.
+ <../TempsNegative.png, id=33, 1436.36626pt x 481.8pt>
+File: ../TempsNegative.png Graphic file (type png)
+ <use ../TempsNegative.png>
+Package pdftex.def Info: ../TempsNegative.png used on input line 104.
+(pdftex.def)             Requested size: 312.9803pt x 104.9818pt.
+ [5 <../SelectedColor.PNG> <../Negatif.PNG>] <../Gris.PNG, id=39, 286.06876pt x 191.9672pt>
+File: ../Gris.PNG Graphic file (type png)
+ <use ../Gris.PNG>
+Package pdftex.def Info: ../Gris.PNG used on input line 115.
+(pdftex.def)             Requested size: 256.0748pt x 171.84032pt.
+ <../TempsToGray.png, id=40, 1435.3625pt x 516.93124pt>
+File: ../TempsToGray.png Graphic file (type png)
+ <use ../TempsToGray.png>
+Package pdftex.def Info: ../TempsToGray.png used on input line 122.
+(pdftex.def)             Requested size: 312.9803pt x 112.71559pt.
+ [6 <../TempsNegative.png> <../Gris.PNG> <../TempsToGray.png>] <../ExtensionLineaire.PNG, id=45, 288.3272pt x 192.72pt>
+File: ../ExtensionLineaire.PNG Graphic file (type png)
+ <use ../ExtensionLineaire.PNG>
+Package pdftex.def Info: ../ExtensionLineaire.PNG used on input line 133.
+(pdftex.def)             Requested size: 256.0748pt x 171.1703pt.
+ <../TempsLinearTransformation.png, id=46, 1437.37pt x 594.22pt>
+File: ../TempsLinearTransformation.png Graphic file (type png)
+ <use ../TempsLinearTransformation.png>
+Package pdftex.def Info: ../TempsLinearTransformation.png used on input line 139.
+(pdftex.def)             Requested size: 312.9803pt x 129.38687pt.
+ <../RandomCouleur1.PNG, id=47, 286.82156pt x 188.95593pt>
+File: ../RandomCouleur1.PNG Graphic file (type png)
+ <use ../RandomCouleur1.PNG>
+Package pdftex.def Info: ../RandomCouleur1.PNG used on input line 150.
+(pdftex.def)             Requested size: 256.0748pt x 168.70363pt.
+ [7 <../ExtensionLineaire.PNG> <../TempsLinearTransformation.png>] <../RandomCouleur2.PNG, id=53, 287.57437pt x 191.9672pt>
+File: ../RandomCouleur2.PNG Graphic file (type png)
+ <use ../RandomCouleur2.PNG>
+Package pdftex.def Info: ../RandomCouleur2.PNG used on input line 157.
+(pdftex.def)             Requested size: 256.0748pt x 170.94398pt.
+ [8 <../RandomCouleur1.PNG> <../RandomCouleur2.PNG>] (/net/cremi/zdebaty/espaces/travail/Projet_Techno_L3/Rendu_1/Latex/Rendu_1.aux) ) 
 Here is how much of TeX's memory you used:
- 3150 strings out of 493013
- 42522 string characters out of 6135682
+ 3185 strings out of 493013
+ 43369 string characters out of 6135682
  106122 words of memory out of 5000000
- 6646 multiletter control sequences out of 15000+600000
+ 6674 multiletter control sequences out of 15000+600000
  11766 words of font info for 30 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  39i,6n,30p,299b,439s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/share/texmf/fonts/type1/public/cm-super/sfbx1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1728.pfb>
-Output written on /net/cremi/zdebaty/espaces/travail/Projet_Techno_L3/Rendu_1/Latex/Rendu_1.pdf (6 pages, 1667953 bytes).
+Output written on /net/cremi/zdebaty/espaces/travail/Projet_Techno_L3/Rendu_1/Latex/Rendu_1.pdf (8 pages, 2514974 bytes).
 PDF statistics:
- 62 PDF objects out of 1000 (max. 8388607)
- 34 compressed objects within 1 object stream
+ 81 PDF objects out of 1000 (max. 8388607)
+ 40 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 36 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 71 words of extra memory for PDF output out of 10000 (max. 10000000)
 

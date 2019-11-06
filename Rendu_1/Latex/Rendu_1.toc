@@ -7,6 +7,6 @@
 \contentsline {subsection}{\numberline {2.2}Luminosit\IeC {\'e}}{3}
 \contentsline {subsection}{\numberline {2.3}Selection de couleurs \relax $\@@underline {\hbox {TD 2 Qestion 2.2}}\mathsurround \z@ $\relax }{4}
 \contentsline {subsection}{\numberline {2.4}Negatif}{5}
-\contentsline {subsection}{\numberline {2.5}Extension lin\IeC {\'e}aire \relax $\@@underline {\hbox {TD 3 Qestion 1.1}}\mathsurround \z@ $\relax }{5}
-\contentsline {subsection}{\numberline {2.6}Version grise \relax $\@@underline {\hbox {TD 1 Question 3}}\mathsurround \z@ $\relax }{6}
-\contentsline {subsection}{\numberline {2.7}Couleur al\IeC {\'e}atoire \relax $\@@underline {\hbox {TD 2 Question 2.1}}\mathsurround \z@ $\relax }{6}
+\contentsline {subsection}{\numberline {2.5}Version grise \relax $\@@underline {\hbox {TD 1 Question 3}}\mathsurround \z@ $\relax }{6}
+\contentsline {subsection}{\numberline {2.6}Extension lin\IeC {\'e}aire \relax $\@@underline {\hbox {TD 3 Qestion 1.1}}\mathsurround \z@ $\relax }{7}
+\contentsline {subsection}{\numberline {2.7}Couleur al\IeC {\'e}atoire \relax $\@@underline {\hbox {TD 2 Question 2.1}}\mathsurround \z@ $\relax }{7}
