@@ -14,14 +14,17 @@
 \tableofcontents 
 \newpage
 
-% --------- Spécificités techniques --------- %
+% --------- Specificites techniques --------- %
 \section{Spécificités techniques}
 
 % --- L'image --- %
 \subsection{L'image}
 \begin{center} 
     \includegraphics[width=9cm]{../multicolor}
-    \end{center}
+    
+    Image de base.
+\end{center}
+\bigbreak
 
 \begin{itemize}
 \item Nom : "multicolor"
@@ -30,88 +33,181 @@
 \end{itemize}
 \medbreak
 
-L'image à été choisie car elle possède des changements de luminosité et énorméments de couleurs afin de tester au mieux mes fonctions.
-C'est la seule image sur laquelle les fonctions ont été testées pour l'instant.
+L'image a été choisie car elle possède des changements de luminosité et énormément de couleurs afin de tester au mieux mes fonctions.
+C'est la seule image sur laquelle mon application a été testée pour l'instant.
 
 % --- Le telephone --- %
 \subsection{Le téléphone}
-Pour tester mes fonctions j'utilise un Sony Xpéria XA, avec une définition d'écran de 1280 * 720 et une diagonale de 5 pouces.\\
+Pour tester mes fonctions j'utilise un Sony Xperia XA, avec un écran de 5 pouces.
 Il tourne sous Android Nougat 7.0.
+\medbreak
+
+J'ai aussi pu tester avec un Neffos X1 avec un écran de 5 pouces.
+Il tourne lui aussi sous Android Nougat 7.0.
 \newpage
 
-% ---------------- Functions ---------------- %
+% ---------------- Fonctions ---------------- %
 \section{Fonctions}
 
-% --- Saturation --- %
-\subsection{Saturation}
-Cette fonction permet de modifier la saturation de l'image en ajoutant / enlevant des pourcentages (10\%) à l'image HSV.
+\subsection{Fonctions de TD}
+
+% --- Version grise --- %
+\subsubsection{Version grise \underline{TD 1 Question 3}}
+Cette fonction grise l'image.
 \bigbreak
 
 \begin{center} 
-    \includegraphics[width=9cm]{../Image_fonction/SaturationMax}
+    \includegraphics[width=9cm]{../Image_fonctions/Gris}
 
-    Image de base avec la saturation au maximum.
+    Image de base grisée
 \end{center}
-
-\begin{center} 
-    \includegraphics[width=9cm]{../Image_fonction/SaturationMoins6}
-
-    Image de base avec 60\% de saturation en moins.
-\end{center}
-
-\begin{center} 
-    \includegraphics[width=11cm]{../Image_temps/TempsChangeSaturation}
-
-    Temps de traitement de la fonction change_saturation() appelé deux fois (+1 et -1).
-\end{center}
-
-% --- Luminosite --- %
-\subsection{Luminosité}
-Cette fonction permet de changer la luminosité de l'image en ajoutant / enlevant des pourcentages (10\%) à l'image HSV.
 \bigbreak
 
 \begin{center} 
-    \includegraphics[width=9cm]{../Image_fonction/LuminositePlus3}
+    \includegraphics[width=11cm]{../Image_temps/TempsToGray}
 
-    Image de base avec 30\% de luminosité en plus.
+    Temps de traitement de la fonction ToGray()
 \end{center}
+\bigbreak
+
+% --- Couleur aleatoire --- %
+\subsubsection{Couleur aléatoire \underline{TD 2 Question 2.1}}
+Cette fonction permet de coloriser l'image avec une couleur choisie aléatoirement.
+\bigbreak
 
 \begin{center} 
-    \includegraphics[width=9cm]{../Image_fonction/LuminositeMoins3}
+    \includegraphics[width=9cm]{../Image_fonctions/RandomCouleur1}
 
-    Image de base avec 30\% de luminosité en moins.
+    Image colorisée avec une couleur aléatoire (exemple 1)
 \end{center}
+\bigbreak
 
 \begin{center} 
-    \includegraphics[width=11cm]{../Image_temps/TempsChangeBrightness}
+    \includegraphics[width=9cm]{../Image_fonctions/RandomCouleur2}
 
-    Temps de traitement de la fonction change_brightness() appelé deux fois (+1 et -1).
+    Image colorisée avec une couleur aléatoire (exemple 2)
 \end{center}
+\bigbreak
+
+\begin{center} 
+    \includegraphics[width=11cm]{../Image_temps/TempsColorize}
+
+    Temps de traitement de la fonction colorize()
+\end{center}
+\bigbreak
 
 % --- Selection de couleurs --- %
-\subsection{Selection de couleurs \underline{TD 2 Qestion 2.2}}
+\subsubsection{Selection de couleurs \underline{TD 2 Question 2.2}}
 Cette fonction permet, au moyen de deux limites (qu'on modifie de 10 en 10), d'afficher ou non certaines couleurs.
 \bigbreak
 
 \begin{center} 
-    \includegraphics[width=9cm]{../Image_fonction/SelectedColor}
+    \includegraphics[width=9cm]{../Image_fonctions/SelectedColor}
 
     Image de base avec les deux limites n'affichants que les parties bleus et vertes de l'image.
 \end{center}
+\bigbreak
 
 \begin{center} 
-    \includegraphics[width=11cm]{../Image_temps/TempsSelectiveColor}
+    \includegraphics[width=11cm]{../Image_temps/TempsSelectedColor}
 
-    Temps de traitement de la fonction selected_color() appelé deux fois (+10 gauche et -10 droit).
+    Temps de traitement de la fonction selected\_color() appelé deux fois\\(+10 gauche et -10 droit).
 \end{center}
+\bigbreak
+
+% --- Extension lineaire --- %
+\subsubsection{Extension linéaire \underline{TD 3 Question 1.1}}
+Cette fonction est l'implémentation de l'augmentation du contraste par extension de dynamique.
+\bigbreak
+
+\begin{center} 
+    \includegraphics[width=9cm]{../Image_fonctions/ExtensionLineaire}
+
+    Image de base grisée puis modifiée avec l'extension linéaire.
+\end{center}
+\bigbreak
+
+\begin{center} 
+    \includegraphics[width=11cm]{../Image_temps/TempsLinearTransformation}
+
+    Temps de traitement de la fonction linear\_transformation()
+\end{center}
+\bigbreak
+
+\subsection{Autres fonctions}
+
+% --- Reinitialisation --- %
+\subsubsection{Réinitialisation}
+Cette fonction permet de remettre l'image de base en image constante et donc d'annuler toutes les modifications effectuée auparavant.
+\bigbreak
+
+\begin{center} 
+    \includegraphics[width=11cm]{../Image_temps/TempsReset}
+
+    Temps de traitement de la fonction reset() sur l'image de base passée en négatif.
+\end{center}
+\bigbreak
+
+% --- Saturation --- %
+\subsubsection{Saturation}
+Cette fonction permet de modifier la saturation de l'image en ajoutant / enlevant des pourcentages (10\%) à l'image HSV.
+\bigbreak
+
+\begin{center} 
+    \includegraphics[width=9cm]{../Image_fonctions/SaturationMax}
+
+    Image de base avec la saturation au maximum.
+\end{center}
+\bigbreak
+
+\begin{center} 
+    \includegraphics[width=9cm]{../Image_fonctions/SaturationMoins6}
+
+    Image de base avec 60\% de saturation en moins.
+\end{center}
+\bigbreak
+
+\begin{center} 
+    \includegraphics[width=11cm]{../Image_temps/TempsChangeSaturation}
+
+    Temps de traitement de la fonction change\_saturation() appelé deux fois (+1 et -1).
+\end{center}
+\bigbreak
+
+% --- Luminosite --- %
+\subsubsection{Luminosité}
+Cette fonction permet de changer la luminosité de l'image en ajoutant / enlevant des pourcentages (10\%) à l'image HSV.
+\bigbreak
+
+\begin{center} 
+    \includegraphics[width=9cm]{../Image_fonctions/LuminositePlus3}
+
+    Image de base avec 30\% de luminosité en plus.
+\end{center}
+\bigbreak
+
+\begin{center} 
+    \includegraphics[width=9cm]{../Image_fonctions/LuminositeMoins3}
+
+    Image de base avec 30\% de luminosité en moins.
+\end{center}
+\bigbreak
+
+\begin{center} 
+    \includegraphics[width=11cm]{../Image_temps/TempsChangeBrightness}
+
+    Temps de traitement de la fonction change\_brightness() appelé deux fois\\(+1 et -1).
+\end{center}
+\bigbreak
 
 % --- Negatif --- %
-\subsection{Negatif}
+\subsubsection{Négatif}
 Cette fonction passe l'image en négatif.
 \bigbreak
 
 \begin{center} 
-    \includegraphics[width=9cm]{../Image_fonction/Negatif}
+    \includegraphics[width=9cm]{../Image_fonctions/Negatif}
+    \bigbreak
 
     Image de base en négatif
 \end{center}
@@ -122,61 +218,17 @@ Cette fonction passe l'image en négatif.
     Temps de traitement de la fonction negative()
 \end{center}
 
-% --- Version grise --- %
-\subsection{Version grise \underline{TD 1 Question 3}}
-Cette fonction grise l'image.
+\newpage
+\section{Interface \underline{TD 3 Question 3.1}}
+Pour l'interface, j'ai décidé d'avoir un menu défilant horizontal.
+
+Pour les fonctions modifiant la saturation et la luminosité et pour la sélection de couleur, j'ai voulut avoir un sous menu s'affichant en cliquant sur le premier bouton. Il permet d'avoir 2 ou 4 boutons afin de modifier les valeurs ainsi qu'un bouton retour.
+
+Je souhaiterais en finalité avoir une "seekbar" afin d'avoir quelque chose de plus visuel pour l'utilisateur.
 \bigbreak
 
-\begin{center} 
-    \includegraphics[width=9cm]{../Image_fonction/Gris}
+Je me suis aussi rendue compte que mon application ne s’adaptait pas aux barres de navigation virtuelles (contrairement au Neffos qui possède des boutons physique). En effet, certains boutons étaient cachés par la barre. 
+J'ai donc résolu ce problème en modifiant la visibilité de l'interface utilisateur au lancement de l'application. Mais si on verrouille l'application et qu'on retourne dessus, on peut voir que la barre fixe revient, ce sera donc un problème à régler.
 
-    Image de base grisée
-\end{center}
-
-\begin{center} 
-    \includegraphics[width=11cm]{../Image_temps/TempsToGray}
-
-    Temps de traitement de la fonction ToGray()
-\end{center}
-
-% --- Extension linéaire --- %
-\subsection{Extension linéaire \underline{TD 3 Qestion 1.1}}
-Cette fonction est l'implémentation de l'augmentation du contraste par extension de dynamique.
-\bigbreak
-
-\begin{center} 
-    \includegraphics[width=9cm]{../Image_fonction/ExtensionLineaire}
-
-    Image de base grisée puis modifiée avec l'extension linéaire.
-\end{center}
-
-\begin{center} 
-    \includegraphics[width=11cm]{../Image_temps/TempsLinearTransformation}
-
-    Temps de traitement de la fonction linear\_transformation()
-\end{center}
-
-% --- Couleur aleatoire --- %
-\subsection{Couleur aléatoire \underline{TD 2 Question 2.1}}
-Cette fonction permet de coloriser l'image avec une couleur choisie aléatoirement.
-\bigbreak
-
-\begin{center} 
-    \includegraphics[width=9cm]{../Image_fonction/RandomCouleur1}
-
-    Image colorisé avec une couleur aléatoire (exemple 1)
-\end{center}
-
-\begin{center} 
-    \includegraphics[width=9cm]{../Image_fonction/RandomCouleur2}
-
-    Image colorisé avec une couleur aléatoire (exemple 2)
-\end{center}
-
-\begin{center} 
-    \includegraphics[width=11cm]{../Image_temps/TempsColorize}
-
-    Temps de traitement de la fonction colorize()
-\end{center}
 
 \end{document}
