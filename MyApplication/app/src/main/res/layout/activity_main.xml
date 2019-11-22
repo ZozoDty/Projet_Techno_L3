@@ -41,6 +41,18 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/test_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/test_button" />
+
+                <Button
+                    android:id="@+id/egalisation_histogram_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/egalisation_histogram_button" />
+
+                <Button
                     android:id="@+id/saturation_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

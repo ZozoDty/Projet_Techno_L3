@@ -111,7 +111,7 @@ Cette fonction permet, au moyen de deux limites (qu'on modifie de 10 en 10), d'a
 \begin{center} 
     \includegraphics[width=11cm]{../Image_temps/TempsSelectedColor}
 
-    Temps de traitement de la fonction selected\_color() appelé deux fois\\(+10 gauche et -10 droit).
+    Temps de traitement de la fonction selected\_color() appelée deux fois\\(+10 gauche et -10 droit).
 \end{center}
 \bigbreak
 
@@ -150,7 +150,7 @@ Cette fonction permet de remettre l'image de base en image constante et donc d'a
 
 % --- Saturation --- %
 \subsubsection{Saturation}
-Cette fonction permet de modifier la saturation de l'image en ajoutant / enlevant des pourcentages (10\%) à l'image HSV.
+Cette fonction permet de modifier la saturation de l'image HSV par tranche de +- 10 \%.
 \bigbreak
 
 \begin{center} 
@@ -176,7 +176,7 @@ Cette fonction permet de modifier la saturation de l'image en ajoutant / enlevan
 
 % --- Luminosite --- %
 \subsubsection{Luminosité}
-Cette fonction permet de changer la luminosité de l'image en ajoutant / enlevant des pourcentages (10\%) à l'image HSV.
+Cette fonction permet de changer la luminosité de l'image HSV par tranche de +- 10 \%.
 \bigbreak
 
 \begin{center} 
@@ -196,7 +196,7 @@ Cette fonction permet de changer la luminosité de l'image en ajoutant / enlevan
 \begin{center} 
     \includegraphics[width=11cm]{../Image_temps/TempsChangeBrightness}
 
-    Temps de traitement de la fonction change\_brightness() appelé deux fois\\(+1 et -1).
+    Temps de traitement de la fonction change\_brightness() appelée deux fois\\(+1 et -1).
 \end{center}
 \bigbreak
 
@@ -207,7 +207,6 @@ Cette fonction passe l'image en négatif.
 
 \begin{center} 
     \includegraphics[width=9cm]{../Image_fonctions/Negatif}
-    \bigbreak
 
     Image de base en négatif
 \end{center}
@@ -220,11 +219,11 @@ Cette fonction passe l'image en négatif.
 
 \newpage
 \section{Interface \underline{TD 3 Question 3.1}}
-Pour l'interface, j'ai décidé d'avoir un menu défilant horizontal.
+Pour l'interface, j'ai décidé d'avoir un menu défilant horizontal permettant d'avoir tout les boutons accessibles dans un espace reduit.
+\bigbreak 
 
-Pour les fonctions modifiant la saturation et la luminosité et pour la sélection de couleur, j'ai voulut avoir un sous menu s'affichant en cliquant sur le premier bouton. Il permet d'avoir 2 ou 4 boutons afin de modifier les valeurs ainsi qu'un bouton retour.
-
-Je souhaiterais en finalité avoir une "seekbar" afin d'avoir quelque chose de plus visuel pour l'utilisateur.
+Pour les fonctions modifiant la saturation et la luminosité et pour la sélection de couleur, j'ai voulu
+Je souhaiterais en finalité utiliser une "seekbar" afin d'avoir quelque chose de plus visuel pour l'utilisateur.
 \bigbreak
 
 Je me suis aussi rendue compte que mon application ne s’adaptait pas aux barres de navigation virtuelles (contrairement au Neffos qui possède des boutons physique). En effet, certains boutons étaient cachés par la barre. 
