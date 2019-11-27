@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         final Button button_test = findViewById(R.id.test_button);
         button_test.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                p = convolution_function.filtreMoyenneur(p);
+                p = convolution_function.filter_Moyenneur(p, 9);
                 setImage(p);
             }
         });

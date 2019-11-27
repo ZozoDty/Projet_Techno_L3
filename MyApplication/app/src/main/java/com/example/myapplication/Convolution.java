@@ -13,40 +13,42 @@ public class Convolution {
 
     // TODO Change in blue
     private Bitmap applyfilter(Bitmap bmp, double[] core){
-        Bitmap p_modif = bmp;
-        p_modif = p_modif.copy(p_modif.getConfig(), true);
+        int[] pixels = new int[bmp.getWidth()*bmp.getHeight()];
+        bmp.getPixels(pixels, 0, bmp.getWidth(), 0, 0, bmp.getWidth(), bmp.getHeight());
 
-        int[] picturePixels = new int[bmp.getWidth()*bmp.getHeight()];
-        bmp.getPixels(picturePixels, 0, bmp.getWidth(), 0, 0, bmp.getWidth(), bmp.getHeight());
-
-        int[] colors = new int[p_modif.getWidth()*p_modif.getHeight()];
+        int[] colors = new int[bmp.getWidth()*bmp.getHeight()];
 
         double line = Math.sqrt(core.length);
-        int dif = (int)(line - 1) / 2; // 1 = core 3*3
+        int dif = (int)(line - 1) / 2;
 
-        for (int y = dif; y < p_modif.getHeight() - dif; y++){
-            for (int x = dif; x < p_modif.getWidth() - dif; x++){
+        for (int y = dif; y < (bmp.getHeight() - dif); y++){
+            for (int x = dif; x < (bmp.getWidth() - dif); x++){
 
-                int id = y * p_modif.getWidth() + x;
-                int color = 0;
+                int id_color_to_set = y * bmp.getWidth() + x;
+                double color = 0;
 
                 for (int j = 0; j < line; j++){
                     for (int i = 0; i < line; i++){
-                        int id_color = id + (j - dif) * bmp.getWidth() + (i - dif);
+                        int id_color = id_color_to_set + (j - dif) * bmp.getWidth() + (i - dif);
                         int id_core = (int) (j * line + i);
-                        color += Color.red(picturePixels[id_color]) * core[id_core];
+
+                        color += pixels[id_color] * core[id_core];
                     }
                 }
-                colors[id] = color;
+
+                colors[id_color_to_set] = (int) color;
             }
         }
+
         System.out.println("---------- FINISH --------");
+        Bitmap p_modif = bmp;
+        p_modif = p_modif.copy(p_modif.getConfig(), true);
         p_modif.setPixels(colors, 0, p_modif.getWidth(), 0, 0, p_modif.getWidth(), p_modif.getHeight());
         return p_modif;
     }
 
-    public Bitmap filtreMoyenneur(Bitmap bmp){
-        double[] core = new double[9];
+    public Bitmap filter_Moyenneur(Bitmap bmp, int size){
+        double[] core = new double[size];
         for (int i = 0; i < core.length; i++){
             core[i] = 1.0/9;
         }
