@@ -14,16 +14,49 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/reset_c_button"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/reset_c_button" />
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/change_picture_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/change_picture_button"
+                    android:textColor="#ff0000"/>
+
+                <Spinner
+                    android:id="@+id/spinner_change_picture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/pictures"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/reset_c_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="@string/reset_c_button" />
+
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/picture"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:contentDescription="@string/picture_description"
@@ -44,13 +77,15 @@
                     android:id="@+id/test_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/test_button" />
+                    android:text="@string/test_button"
+                    android:textColor="#ff0000"/>
 
                 <Button
                     android:id="@+id/egalisation_histogram_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/egalisation_histogram_button" />
+                    android:text="@string/egalisation_histogram_button"
+                    android:textColor="#ff0000"/>
 
                 <Button
                     android:id="@+id/saturation_button"
@@ -93,6 +128,42 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/gray_button" />
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        <HorizontalScrollView
+            android:id="@+id/scroll_parameter_RS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/random_button_rs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/random_button_rs"
+                    android:textColor="#FF0000"/>
+
+                <Button
+                    android:id="@+id/negative_button_rs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/negative_button_rs"
+                    android:textColor="#FF0000"/>
+
+                <Button
+                    android:id="@+id/gray_button_rs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/gray_button_rs"
+                    android:textColor="#0000FF"/>
 
             </LinearLayout>
 

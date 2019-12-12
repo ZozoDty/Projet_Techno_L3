@@ -11,7 +11,7 @@ public class Convolution {
         this.tools = tools;
     }
 
-    // TODO Change in blue
+    // TODO
     private Bitmap applyfilter(Bitmap bmp, double[] core){
         int[] pixels = new int[bmp.getWidth()*bmp.getHeight()];
         bmp.getPixels(pixels, 0, bmp.getWidth(), 0, 0, bmp.getWidth(), bmp.getHeight());
@@ -50,7 +50,7 @@ public class Convolution {
     public Bitmap filter_Moyenneur(Bitmap bmp, int size){
         double[] core = new double[size];
         for (int i = 0; i < core.length; i++){
-            core[i] = 1.0/9;
+            core[i] = 1.0/size;
         }
         return applyfilter(bmp, core);
     }
