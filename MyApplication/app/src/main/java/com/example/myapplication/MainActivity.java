@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.renderscript.Allocation;
 import androidx.renderscript.RenderScript;
+import androidx.renderscript.ScriptC;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -476,6 +478,42 @@ public class MainActivity extends AppCompatActivity {
         input.destroy();
         output.destroy();
         RandomScript.destroy();
+        rs.destroy();
+    }
+
+    public void RGBToHSVRS(Bitmap bmp){
+        androidx.renderscript.RenderScript rs = RenderScript.create(this);
+
+        androidx.renderscript.Allocation input = androidx.renderscript.Allocation.createFromBitmap(rs, bmp);
+        androidx.renderscript.Allocation output = Allocation.createTyped(rs, input.getType());
+
+        ScriptC_RGBToHSV RGBToHSVScript = new ScriptC_RGBToHSV(rs);
+
+        RGBToHSVScript.forEach_rgbToHsv(input, output);
+
+        output.copyTo(bmp);
+
+        input.destroy();
+        output.destroy();
+        RGBToHSVScript.destroy();
+        rs.destroy();
+    }
+
+    public void HSVToRGBRS(Bitmap bmp){
+        androidx.renderscript.RenderScript rs = RenderScript.create(this);
+
+        androidx.renderscript.Allocation input = androidx.renderscript.Allocation.createFromBitmap(rs, bmp);
+        androidx.renderscript.Allocation output = Allocation.createTyped(rs, input.getType());
+
+        ScriptC_HSVToRGB HSVToRGBScript = new ScriptC_HSVToRGB(rs);
+
+        HSVToRGBScript.forEach_hsvToRgb(input, output);
+
+        output.copyTo(bmp);
+
+        input.destroy();
+        output.destroy();
+        HSVToRGBScript.destroy();
         rs.destroy();
     }
 }
