@@ -48,7 +48,7 @@ public class Functions {
         int[] colors = new int[p_modif.getWidth()*p_modif.getHeight()];
 
         int red, green, blue;
-        int new_color = (int) (Math.random() * 255);
+        int new_color = (int) (Math.random() * 360);
 
         for(int i = 0; i < pixels.length; i++) {
             red = Color.red(pixels[i]);

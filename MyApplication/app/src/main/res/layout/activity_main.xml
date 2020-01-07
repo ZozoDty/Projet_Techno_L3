@@ -28,8 +28,7 @@
                     android:id="@+id/change_picture_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/change_picture_button"
-                    android:textColor="#ff0000"/>
+                    android:text="@string/change_picture_button"/>
 
                 <Spinner
                     android:id="@+id/spinner_change_picture"
@@ -56,12 +55,15 @@
 
         <ImageView
             android:id="@+id/picture"
+            android:adjustViewBounds="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:contentDescription="@string/picture_description"
-            android:src="@drawable/multicolor" />
+            android:src="@drawable/cat" />
 
+
+        <!-- JAVA functions -->
         <HorizontalScrollView
             android:id="@+id/scroll_parameter"
             android:layout_width="wrap_content"
@@ -79,6 +81,12 @@
                     android:layout_height="wrap_content"
                     android:text="@string/test_button"
                     android:textColor="#ff0000"/>
+
+                <Button
+                    android:id="@+id/convolution_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/convolution_button" />
 
                 <Button
                     android:id="@+id/egalisation_histogram_button"
@@ -133,6 +141,8 @@
 
         </HorizontalScrollView>
 
+
+        <!-- RS Functions -->
         <HorizontalScrollView
             android:id="@+id/scroll_parameter_RS"
             android:layout_width="wrap_content"
@@ -156,7 +166,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/negative_button_rs"
-                    android:textColor="#FF0000"/>
+                    android:textColor="#0000FF"/>
 
                 <Button
                     android:id="@+id/gray_button_rs"
@@ -169,6 +179,207 @@
 
         </HorizontalScrollView>
 
+        <!-- Convolution -->
+        <LinearLayout
+            android:id="@+id/convolution_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="bottom"
+            android:visibility="gone">
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/average_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/average_button"/>
+
+                    <Button
+                        android:id="@+id/gaussien_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/gaussien_button"/>
+
+                    <Button
+                        android:id="@+id/prewitt_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/prewitt_button"/>
+
+                    <Button
+                        android:id="@+id/sobel_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sobel_button"/>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+            <Button
+                android:id="@+id/convolution_return_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/return_button" />
+
+        </LinearLayout>
+
+
+        <!-- Convolution -> Average -->
+        <LinearLayout
+            android:id="@+id/convolution_average_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="bottom"
+            android:visibility="gone">
+
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/average_3_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/average_3_button"/>
+
+                    <Button
+                        android:id="@+id/average_7_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/average_7_button"/>
+
+                    <Button
+                        android:id="@+id/average_15_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/average_15_button"/>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+            <Button
+                android:id="@+id/convolution_average_return_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/return_button" />
+
+        </LinearLayout>
+
+        <!-- Convolution -> Prewitt -->
+        <LinearLayout
+            android:id="@+id/convolution_prewitt_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="bottom"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+
+                <Button
+                    android:id="@+id/prewitt_horizontal_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/prewitt_horizontal_button"
+                    android:textColor="#FF0000"/>
+
+                <Button
+                    android:id="@+id/prewitt_all_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/prewitt_all_button"
+                    android:textColor="#FF0000"/>
+
+                <Button
+                    android:id="@+id/prewitt_vertical_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/prewitt_vertical_button"
+                    android:textColor="#FF0000"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/convolution_prewitt_return_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/return_button" />
+
+        </LinearLayout>
+
+        <!-- Convolution -> Sobel -->
+        <LinearLayout
+            android:id="@+id/convolution_sobel_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="bottom"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+
+                <Button
+                    android:id="@+id/sobel_horizontal_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sobel_horizontal_button"
+                    android:textColor="#FF0000"/>
+
+                <Button
+                    android:id="@+id/sobel_all_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sobel_all_button"
+                    android:textColor="#FF0000"/>
+
+                <Button
+                    android:id="@+id/sobel_vertical_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sobel_vertical_button"
+                    android:textColor="#FF0000"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/convolution_sobel_return_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/return_button" />
+
+        </LinearLayout>
+
+
+        <!-- Saturation -->
         <LinearLayout
             android:id="@+id/saturation_layout"
             android:layout_width="wrap_content"
@@ -208,10 +419,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/return_saturation_button" />
+                android:text="@string/return_button" />
 
         </LinearLayout>
 
+
+        <!-- Brightness -->
         <LinearLayout
             android:id="@+id/brightness_layout"
             android:layout_width="wrap_content"
@@ -251,10 +464,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/return_brightness_button" />
+                android:text="@string/return_button" />
 
         </LinearLayout>
 
+
+        <!-- Selected color -->
         <LinearLayout
             android:id="@+id/selected_color_layout"
             android:layout_width="wrap_content"
@@ -306,7 +521,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/return_selected_color_button" />
+                android:text="@string/return_button" />
 
         </LinearLayout>
 

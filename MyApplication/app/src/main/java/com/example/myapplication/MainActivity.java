@@ -20,20 +20,25 @@ public class MainActivity extends AppCompatActivity {
 
     int multicolor_id = R.drawable.multicolor;
     int cat_id = R.drawable.cat;
+    int lenna_id = R.drawable.lenna;
 
-    int picture_id = multicolor_id;
+    int picture_id = lenna_id;
+
 
     Bitmap p, p_tmp;
 
     Tools tools = new Tools();
 
-    View scroll_parameter, scroll_parameter_rs;
     Spinner spinner_picture;
+    View scroll_parameter, scroll_parameter_rs;
+    View convolution_layout, convolution_average_layout, convolution_prewitt_layout, convolution_sobel_layout;
 
     Functions function = new Functions(tools);
-    Convolution convolution_function = new Convolution(tools);
+    Convolution convolution_function = new Convolution(tools, function);
     Contrast contrast_function = new Contrast(tools, function);
     Test test_function = new Test(function, tools);
+
+    boolean isInConvolution = false;
 
 
     @Override
@@ -41,9 +46,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        spinner_picture = findViewById(R.id.spinner_change_picture);
         scroll_parameter = findViewById(R.id.scroll_parameter);
         scroll_parameter_rs = findViewById(R.id.scroll_parameter_RS);
-        spinner_picture = findViewById(R.id.spinner_change_picture);
+        convolution_layout = findViewById(R.id.convolution_layout);
+        convolution_average_layout = findViewById(R.id.convolution_average_layout);
+        convolution_prewitt_layout = findViewById(R.id.convolution_prewitt_layout);
+        convolution_sobel_layout = findViewById(R.id.convolution_sobel_layout);
 
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY |
                                                         View.SYSTEM_UI_FLAG_FULLSCREEN |
@@ -66,6 +75,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Button to test new functions
         setTestButton();
+
+        //Convolution
+        setConvolutionButton();
 
         // Histogram egalisation
         setHistogramEgalisationButton();
@@ -135,12 +147,18 @@ public class MainActivity extends AppCompatActivity {
                         set_p(picture_id);
                         setImage(p);
                         break;
+                    case("Girl"):
+                        picture_id = lenna_id;
+                        set_p(picture_id);
+                        setImage(p);
+                        break;
                     default:
                         break;
                 }
             }
         });
     }
+
 
     private void setResetColorButton(){
         final Button button_reset_color = findViewById(R.id.reset_c_button);
@@ -150,6 +168,9 @@ public class MainActivity extends AppCompatActivity {
                 set_p_tmp();
                 function.setLeft_selected_color(0);
                 function.setRight_selected_color(360);
+                if(isInConvolution){
+                    p = function.toGray(p);
+                }
                 setImage(p);
             }
         });
@@ -159,11 +180,201 @@ public class MainActivity extends AppCompatActivity {
         final Button button_test = findViewById(R.id.test_button);
         button_test.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                p = convolution_function.filter_Moyenneur(p, 9);
+                p = function.toGray(p);
+                p = convolution_function.filter_Prewitt_horizontal(p);
                 setImage(p);
             }
         });
     }
+
+    private void setConvolutionButton(){
+        final Button button_convolution = findViewById(R.id.convolution_button);
+        button_convolution.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                isInConvolution = true;
+                p = function.toGray(p);
+                setImage(p);
+
+                scroll_parameter.setVisibility(View.GONE);
+                scroll_parameter_rs.setVisibility(View.GONE);
+                convolution_layout.setVisibility(View.VISIBLE);
+            }
+        });
+
+        final Button button_convolution_return = findViewById(R.id.convolution_return_button);
+        button_convolution_return.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                isInConvolution = false;
+                convolution_layout.setVisibility(View.GONE);
+                scroll_parameter.setVisibility(View.VISIBLE);
+                scroll_parameter_rs.setVisibility(View.VISIBLE);
+            }
+        });
+
+        final Button button_gaussien = findViewById(R.id.gaussien_button);
+        button_gaussien.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                p = convolution_function.filter_Gaussien(p);
+                setImage(p);
+            }
+        });
+
+        setConvolutionAverageButton();
+        setConvolutionPrewittButton();
+        setConvolutionSobelButton();
+    }
+
+    private void setConvolutionAverageButton(){
+        final Button button_average = findViewById(R.id.average_button);
+        button_average.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                p_tmp = p;
+                p_tmp = p_tmp.copy(p_tmp.getConfig(), true);
+
+                convolution_layout.setVisibility(View.GONE);
+                convolution_average_layout.setVisibility(View.VISIBLE);
+            }
+        });
+
+        final Button button_average_return = findViewById(R.id.convolution_average_return_button);
+        button_average_return.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                p = p_tmp;
+                p = p.copy(p.getConfig(), true);
+                setImage(p);
+
+                convolution_average_layout.setVisibility(View.GONE);
+                convolution_layout.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        final Button button_average_3 = findViewById(R.id.average_3_button);
+        button_average_3.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                p_tmp = convolution_function.filter_Moyenneur(p, 9);
+                setImage(p_tmp);
+            }
+        });
+
+        final Button button_average_7 = findViewById(R.id.average_7_button);
+        button_average_7.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                p_tmp = convolution_function.filter_Moyenneur(p, 49);
+                setImage(p_tmp);
+            }
+        });
+
+        final Button button_average_15 = findViewById(R.id.average_15_button);
+        button_average_15.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                p_tmp = convolution_function.filter_Moyenneur(p, 225);
+                setImage(p_tmp);
+            }
+        });
+    }
+
+    private void setConvolutionPrewittButton(){
+        final Button button_prewitt = findViewById(R.id.prewitt_button);
+        button_prewitt.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                p_tmp = p;
+                p_tmp = p_tmp.copy(p_tmp.getConfig(), true);
+
+                convolution_layout.setVisibility(View.GONE);
+                convolution_prewitt_layout.setVisibility(View.VISIBLE);
+            }
+        });
+
+        final Button button_prewitt_return = findViewById(R.id.convolution_prewitt_return_button);
+        button_prewitt_return.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                p = p_tmp;
+                p = p.copy(p.getConfig(), true);
+                setImage(p);
+
+                convolution_prewitt_layout.setVisibility(View.GONE);
+                convolution_layout.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        final Button button_prewitt_horizontal = findViewById(R.id.prewitt_horizontal_button);
+        button_prewitt_horizontal.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                p_tmp = convolution_function.filter_Prewitt_horizontal(p_tmp);
+                setImage(p_tmp);
+            }
+        });
+
+        final Button button_prewitt_vertical = findViewById(R.id.prewitt_vertical_button);
+        button_prewitt_vertical.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                p_tmp = convolution_function.filter_Prewitt_vertical(p_tmp);
+                setImage(p_tmp);
+            }
+        });
+
+        final Button button_prewitt_all = findViewById(R.id.prewitt_all_button);
+        button_prewitt_all.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                p_tmp = convolution_function.filter_Prewitt(p_tmp);
+                setImage(p_tmp);
+            }
+        });
+    }
+
+    private void setConvolutionSobelButton(){
+        final Button button_sobel = findViewById(R.id.sobel_button);
+        button_sobel.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                p_tmp = p;
+                p_tmp = p_tmp.copy(p_tmp.getConfig(), true);
+
+                convolution_layout.setVisibility(View.GONE);
+                convolution_sobel_layout.setVisibility(View.VISIBLE);
+            }
+        });
+
+        final Button button_sobel_return = findViewById(R.id.convolution_sobel_return_button);
+        button_sobel_return.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                p = p_tmp;
+                p = p.copy(p.getConfig(), true);
+                setImage(p);
+
+                convolution_sobel_layout.setVisibility(View.GONE);
+                convolution_layout.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        final Button button_sobel_horizontal = findViewById(R.id.sobel_horizontal_button);
+        button_sobel_horizontal.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                p_tmp = convolution_function.filter_Sobel_horizontal(p_tmp);
+                setImage(p_tmp);
+            }
+        });
+
+        final Button button_sobel_vertical = findViewById(R.id.sobel_vertical_button);
+        button_sobel_vertical.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                p_tmp = convolution_function.filter_Sobel_vertical(p_tmp);
+                setImage(p_tmp);
+            }
+        });
+
+        final Button button_sobel_all = findViewById(R.id.sobel_all_button);
+        button_sobel_all.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                p_tmp = convolution_function.filter_Sobel(p_tmp);
+                setImage(p_tmp);
+            }
+        });
+    }
+
+
 
     private void setHistogramEgalisationButton(){
         final Button button_histogram_egalisation = findViewById(R.id.egalisation_histogram_button);
