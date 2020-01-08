@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     int cat_id = R.drawable.cat;
     int lenna_id = R.drawable.lenna;
 
-    int picture_id = lenna_id;
+    int picture_id = cat_id;
 
 
     Bitmap p, p_tmp;
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     Spinner spinner_picture;
     View scroll_parameter, scroll_parameter_rs;
-    View convolution_layout, convolution_average_layout, convolution_prewitt_layout, convolution_sobel_layout;
+    View convolution_layout, convolution_average_layout, convolution_prewitt_layout, convolution_sobel_layout, convolution_laplacien_layout;
 
     Functions function = new Functions(tools);
     Convolution convolution_function = new Convolution(tools, function);
@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         convolution_average_layout = findViewById(R.id.convolution_average_layout);
         convolution_prewitt_layout = findViewById(R.id.convolution_prewitt_layout);
         convolution_sobel_layout = findViewById(R.id.convolution_sobel_layout);
+        convolution_laplacien_layout = findViewById(R.id.convolution_laplacien_layout);
 
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY |
                                                         View.SYSTEM_UI_FLAG_FULLSCREEN |
@@ -165,12 +166,12 @@ public class MainActivity extends AppCompatActivity {
         button_reset_color.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 set_p(picture_id);
-                set_p_tmp();
-                function.setLeft_selected_color(0);
-                function.setRight_selected_color(360);
                 if(isInConvolution){
                     p = function.toGray(p);
                 }
+                set_p_tmp();
+                function.setLeft_selected_color(0);
+                function.setRight_selected_color(360);
                 setImage(p);
             }
         });
@@ -222,6 +223,7 @@ public class MainActivity extends AppCompatActivity {
         setConvolutionAverageButton();
         setConvolutionPrewittButton();
         setConvolutionSobelButton();
+        setConvolutionLaplacienButton();
     }
 
     private void setConvolutionAverageButton(){
@@ -369,6 +371,48 @@ public class MainActivity extends AppCompatActivity {
         button_sobel_all.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 p_tmp = convolution_function.filter_Sobel(p_tmp);
+                setImage(p_tmp);
+            }
+        });
+    }
+
+    private void setConvolutionLaplacienButton(){
+        final Button button_laplacien = findViewById(R.id.laplacien_button);
+        button_laplacien.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                p_tmp = p;
+                p_tmp = p_tmp.copy(p_tmp.getConfig(), true);
+
+                convolution_layout.setVisibility(View.GONE);
+                convolution_laplacien_layout.setVisibility(View.VISIBLE);
+            }
+        });
+
+        final Button button_laplacien_return = findViewById(R.id.convolution_laplacien_return_button);
+        button_laplacien_return.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                p = p_tmp;
+                p = p.copy(p.getConfig(), true);
+                setImage(p);
+
+                convolution_laplacien_layout.setVisibility(View.GONE);
+                convolution_layout.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        final Button button_laplacien_4 = findViewById(R.id.laplacien_4_button);
+        button_laplacien_4.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                p_tmp = convolution_function.filter_Laplacier_4(p_tmp);
+                setImage(p_tmp);
+            }
+        });
+
+        final Button button_laplacien_8 = findViewById(R.id.laplacien_8_button);
+        button_laplacien_8.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                p_tmp = convolution_function.filter_Laplacier_8(p_tmp);
                 setImage(p_tmp);
             }
         });
@@ -681,6 +725,7 @@ public class MainActivity extends AppCompatActivity {
         androidx.renderscript.Allocation output = Allocation.createTyped(rs, input.getType());
 
         ScriptC_Random RandomScript = new ScriptC_Random(rs);
+        RandomScript.set_rand((float) (Math.random() * 360));
 
         RandomScript.forEach_random(input, output);
 
@@ -692,7 +737,7 @@ public class MainActivity extends AppCompatActivity {
         rs.destroy();
     }
 
-    public void RGBToHSVRS(Bitmap bmp){
+    public void rgbToHsvRS(Bitmap bmp){
         androidx.renderscript.RenderScript rs = RenderScript.create(this);
 
         androidx.renderscript.Allocation input = androidx.renderscript.Allocation.createFromBitmap(rs, bmp);
@@ -710,7 +755,7 @@ public class MainActivity extends AppCompatActivity {
         rs.destroy();
     }
 
-    public void HSVToRGBRS(Bitmap bmp){
+    public void hdvToRgbRS(Bitmap bmp){
         androidx.renderscript.RenderScript rs = RenderScript.create(this);
 
         androidx.renderscript.Allocation input = androidx.renderscript.Allocation.createFromBitmap(rs, bmp);

@@ -13,6 +13,7 @@ public class Convolution {
         this.functions = functions;
     }
 
+    // TODO doesn't create a gray picture (there is yellow)
     private Bitmap applyfilter(Bitmap bmp, double[] core, int div){
         int[] pixels = new int[bmp.getWidth()*bmp.getHeight()];
         bmp.getPixels(pixels, 0, bmp.getWidth(), 0, 0, bmp.getWidth(), bmp.getHeight());
@@ -25,14 +26,16 @@ public class Convolution {
         }
         int dif = (int)(line - 1) / 2;
 
+        double newRed, newGreen, newBlue;
+        int id_color_to_set;
+
         for (int y = dif; y < (bmp.getHeight() - dif); y++){
             for (int x = dif; x < (bmp.getWidth() - dif); x++){
 
-                int id_color_to_set = y * bmp.getWidth() + x;
-                double newRed = 0;
-                double newGreen = 0;
-                double newBlue = 0;
-
+                id_color_to_set = y * bmp.getWidth() + x;
+                newRed = 0;
+                newGreen = 0;
+                newBlue = 0;
 
                 for (int j = 0; j < line; j++){
                     for (int i = 0; i < line; i++){
@@ -71,14 +74,14 @@ public class Convolution {
         return applyfilter(bmp, core, 98);
     }
 
-    // TODO add yellow
+    /* --- Prewitt --- */
+
     public Bitmap filter_Prewitt(Bitmap bmp){
         bmp = filter_Prewitt_horizontal(bmp);
         bmp = filter_Prewitt_vertical(bmp);
         return bmp;
     }
 
-    // TODO add yellow
     public Bitmap filter_Prewitt_horizontal(Bitmap bmp){
         double[] core = {-1, 0, 1
                         ,-1, 0, 1
@@ -86,7 +89,6 @@ public class Convolution {
         return applyfilter(bmp, core, 1);
     }
 
-    // TODO add yellow
     public Bitmap filter_Prewitt_vertical(Bitmap bmp){
         double[] core = {-1, -1, -1
                         ,0, 0, 0
@@ -94,14 +96,14 @@ public class Convolution {
         return applyfilter(bmp, core, 1);
     }
 
-    // TODO add yellow
+    /* --- Sobel --- */
+
     public Bitmap filter_Sobel(Bitmap bmp){
         bmp = filter_Prewitt_horizontal(bmp);
         bmp = filter_Prewitt_vertical(bmp);
         return bmp;
     }
 
-    // TODO add yellow
     public Bitmap filter_Sobel_horizontal(Bitmap bmp){
         double[] core = {-1, 0, 1
                         ,-2, 0, 2
@@ -109,11 +111,26 @@ public class Convolution {
         return applyfilter(bmp, core, 1);
     }
 
-    // TODO add yellow
     public Bitmap filter_Sobel_vertical(Bitmap bmp){
         double[] core = {-1, -2, -1
                         ,0, 0, 0
                         ,1, 2, 1};
+        return applyfilter(bmp, core, 1);
+    }
+
+    /* --- Laplacien --- */
+
+    public Bitmap filter_Laplacier_4(Bitmap bmp){
+        double[] core = {0, 1, 0
+                        ,1, -4, 1
+                        ,0, 1, 0};
+        return applyfilter(bmp, core, 1);
+    }
+
+    public Bitmap filter_Laplacier_8(Bitmap bmp){
+        double[] core = {1, 1, 1
+                        ,1, -8, 1
+                        ,1, 1, 1};
         return applyfilter(bmp, core, 1);
     }
 

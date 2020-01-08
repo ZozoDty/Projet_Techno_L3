@@ -23,6 +23,9 @@
         <string name="sobel_horizontal_button">Horizontal</string>
         <string name="sobel_all_button">All</string>
         <string name="sobel_vertical_button">Vertical</string>
+    <string name="laplacien_button">Laplacien</string>
+        <string name="laplacien_4_button">4 cx</string>
+        <string name="laplacien_8_button">8 cx</string>
 
     <string name="random_button">Random color</string>
     <string name="negative_button">Negative</string>
