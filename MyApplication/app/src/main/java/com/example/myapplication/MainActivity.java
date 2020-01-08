@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     int cat_id = R.drawable.cat;
     int lenna_id = R.drawable.lenna;
 
-    int picture_id = cat_id;
+    int picture_id = multicolor_id;
 
 
     Bitmap p, p_tmp;
@@ -181,8 +181,7 @@ public class MainActivity extends AppCompatActivity {
         final Button button_test = findViewById(R.id.test_button);
         button_test.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                p = function.toGray(p);
-                p = convolution_function.filter_Prewitt_horizontal(p);
+                p = test_function.testThisRGBToHSV(p);
                 setImage(p);
             }
         });
